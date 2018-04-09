@@ -8,7 +8,6 @@
 enum hydro_status_code{
     hydro_DEFAULT,
     hydro_PUMPING,
-    hydro_ALL_OFF
 };
 
 typedef struct hydro_state{

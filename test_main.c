@@ -88,6 +88,24 @@ test_counter test_counter_rolls_to_0_after_12hours(test_counter tc){
     return tc;
 }
 
+test_counter test_fan_runs_opposite_of_pump(test_counter tc){
+    hydro_state hs = init_hydro();
+    printf("test_fan_runs_opposite_of_pump\n");
+
+
+    hs.low_water_sense=OFF;
+    hs = next_hydro_state(hs);
+    tc = assert_true(tc, hs.fan==ON, "Fan should be on when pump is off\n");
+    tc = assert_true(tc, hs.pump==OFF, "Pump should be off\n");
+
+    hs.high_water_sense=ON;
+    hs.low_water_sense=ON;
+    hs = next_hydro_state(hs);
+    tc = assert_true(tc, hs.fan==OFF, "Fan should be off when pump is on\n");
+    tc = assert_true(tc, hs.pump==ON, "Pump should be on.\n");
+    return tc;
+}
+
 
 int main(void){
     test_counter tc;
@@ -99,6 +117,7 @@ int main(void){
     tc = test_stop_pump_when_low_water(tc);
     tc = test_lights_on_between_0and10_hours(tc);
     tc = test_counter_rolls_to_0_after_12hours(tc);
+    tc = test_fan_runs_opposite_of_pump(tc);
 
     printf("Ran %d tests.  %d failed.\n",tc.total_tests,tc.failed_tests);
    return 0;
