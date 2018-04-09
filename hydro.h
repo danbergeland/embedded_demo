@@ -4,13 +4,12 @@
 #define ON 1
 #define OFF 0
 
-void hello(void);
+#define LIGHT_OFF_TIME 36000 //10 hours in seconds
 
 enum hydro_status_code{
     hydro_DEFAULT,
     hydro_PUMPING,
-    hydro_LIGHT,
-    hydro_LIGHT_WITH_FAN
+    hydro_ALL_OFF
 };
 
 typedef struct hydro_state{
@@ -20,7 +19,7 @@ typedef struct hydro_state{
     int pump;
     int fan;
     int light;
-
+    int timer_seconds;
 } hydro_state;
 
 hydro_state init_hydro(void);
