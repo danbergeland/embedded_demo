@@ -50,6 +50,7 @@ test_counter test_stop_pump_when_low_water(test_counter tc){
     tc = assert_true(tc, hs.status==hydro_DEFAULT,"State should be default, not pumping");
     return tc;
 }
+
 test_counter test_lights_on_between_0and10_hours(test_counter tc){
     hydro_state hs = init_hydro();
     printf("test_lights_on_between_0and10_hours\n");
@@ -73,6 +74,20 @@ test_counter test_lights_on_between_0and10_hours(test_counter tc){
     return tc;
 }
 
+test_counter test_counter_rolls_to_0_after_12hours(test_counter tc){
+    hydro_state hs = init_hydro();
+    printf("test_counter_rolls_to_0_after_12hours\n");
+
+    hs.timer_seconds = 12*60*60;
+    hs = next_hydro_state(hs);
+    tc = assert_true(tc, hs.timer_seconds==12*60*60, "Timer should go up to 12 hours\n");
+
+    hs.timer_seconds = 12*60*60+1;
+    hs = next_hydro_state(hs);
+    tc = assert_true(tc, hs.timer_seconds==0, "Timer should roll over to 0 over 12 hours\n");
+    return tc;
+}
+
 
 int main(void){
     test_counter tc;
@@ -83,6 +98,7 @@ int main(void){
     tc = test_pump_when_high_water_detected(tc);
     tc = test_stop_pump_when_low_water(tc);
     tc = test_lights_on_between_0and10_hours(tc);
+    tc = test_counter_rolls_to_0_after_12hours(tc);
 
     printf("Ran %d tests.  %d failed.\n",tc.total_tests,tc.failed_tests);
    return 0;

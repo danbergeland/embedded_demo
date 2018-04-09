@@ -4,7 +4,6 @@
 #define ON 1
 #define OFF 0
 
-#define LIGHT_OFF_TIME 36000 //10 hours in seconds
 
 enum hydro_status_code{
     hydro_DEFAULT,
