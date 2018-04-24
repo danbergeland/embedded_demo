@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include "hydro.h"
 
+#define TEST
+
 typedef struct test_counter{
     int total_tests;
     int failed_tests;

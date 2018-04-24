@@ -24,4 +24,8 @@ hydro_state init_hydro(void);
 
 hydro_state next_hydro_state(hydro_state);
 
+hydro_state read_hydro_inputs(hydro_state);
+
+void set_hydro_outputs(hydro_state);
+
 #endif
