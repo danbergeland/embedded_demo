@@ -1,11 +1,14 @@
 #include "hydro.h"
 
-#ifndef TEST
-#include <HAL.h>
+#ifdef TEST
+    #include "HAL_mock.h"
+#else
+    #include "HAL.h"
 #endif
 
-#define LIGHT_OFF_TIME 25 //36000 = 10 hours in seconds
-#define TIMER_ROLLOVER 30 //43200 = 12 hours in seconds
+
+#define LIGHT_OFF_TIME 36000 //36000 = 10 hours in seconds
+#define TIMER_ROLLOVER 43200 //43200 = 12 hours in seconds
 
 //private
 hydro_state handle_high_water_sense(hydro_state state){
@@ -24,8 +27,14 @@ hydro_state handle_low_water_sense(hydro_state state){
 }
 
 hydro_state init_hydro(void){
-    hydro_state hs = {.status = hydro_DEFAULT, .fan=OFF,.light=OFF,.pump=OFF,
-            .high_water_sense=OFF,.low_water_sense=OFF,.timer_seconds=0};
+    hydro_state hs = {
+            .status = hydro_DEFAULT,
+            .fan=OFF,
+            .light=OFF,
+            .pump=OFF,
+            .high_water_sense=OFF,
+            .low_water_sense=OFF,
+            .timer_seconds=0};
     return hs;
 }
 

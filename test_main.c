@@ -4,8 +4,7 @@
 
 #include <stdio.h>
 #include "hydro.h"
-
-#define TEST
+#include "HAL_mock.h"
 
 typedef struct test_counter{
     int total_tests;
@@ -110,6 +109,7 @@ test_counter test_fan_runs_opposite_of_pump(test_counter tc){
 
 
 int main(void){
+    init_HAL_mock();
     test_counter tc;
     tc.failed_tests=0;
     tc.total_tests=0;

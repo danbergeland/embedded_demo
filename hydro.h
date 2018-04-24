@@ -4,6 +4,7 @@
 #define ON 1
 #define OFF 0
 
+//#define TEST
 
 enum hydro_status_code{
     hydro_DEFAULT,
